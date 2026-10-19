@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const title = '钱佳宇 · 渗透测试 / 安全运维';
+const description = '绿盟科技安全产品交付实习 · 补天漏洞响应平台报送 · Linux 与网络安全方向';
+const permalink = Astro.site.href;
+
+let projects = await getCollection('projects');
+projects = projects.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const highlights = [
+  { k: '1 年', v: '绿盟科技安全产品交付实习' },
+  { k: '2 项', v: '补天平台事件型漏洞编号' },
+  { k: 'VRRP + OSPF', v: '防火墙双机高可用部署验收' },
+  { k: '1.2 万行', v: 'Android 端工具软件开发' },
+];
+---
+
+<BaseLayout title={title} description={description} permalink={permalink}>
+  <div class="home-container">
+    <div class="home-copy">
+      <h1>钱佳宇</h1>
+      <p class="role">渗透测试 / 安全运维</p>
+      <p>
+        上海建桥学院计算机科学与技术专业在读。在绿盟科技上海代表处做过一年安全产品交付，
+        独立完成过防火墙双机高可用部署与现场验收，也在涉密单位配合研发做过国产平台的故障定位。
+        除交付之外，自己做渗透测试和移动端安全工具的开发。
+      </p>
+      <p class="links">
+        <a href="https://github.com/qianeric-backup/" target="_blank" rel="noopener">GitHub</a>
+        <span class="sep">·</span>
+        <a href="mailto:jiayuq0@gmail.com">jiayuq0@gmail.com</a>
+      </p>
+    </div>
+
+    <div class="hero-image-container">
+      <img class="hero-image" alt="钱佳宇" src="/assets/profile.jpg" width="178" height="267">
+    </div>
+  </div>
+
+  <section class="stats">
+    {highlights.map((h) => (
+      <div class="stat">
+        <div class="stat-k">{h.k}</div>
+        <div class="stat-v">{h.v}</div>
+      </div>
+    ))}
+  </section>
+
+  <section class="projects">
+    <h2>项目与经历</h2>
+    <div class="grid">
+      {projects.map((p) => (
+        <a class="card" href={`/projects/${p.data.slug}`}>
+          <h3>{p.data.title}</h3>
+          <div class="meta">{p.data.period}</div>
+          <p>{p.data.description}</p>
+          {p.data.stack && (
+            <div class="tags">
+              {p.data.stack.slice(0, 4).map((t) => <span>{t}</span>)}
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .home-container {
+    align-items: center;
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    margin: 1.5em 0 1em;
+  }
+
+  .home-copy {
+    flex: 1;
+  }
+
+  .home-copy h1 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.2em;
+  }
+
+  .home-copy .role {
+    color: var(--primary-color);
+    font-family: var(--font-family-sans);
+    font-size: 1.15em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9em;
+  }
+
+  .home-copy p {
+    font-size: 1.05em;
+    line-height: 1.7;
+  }
+
+  .links {
+    margin-top: 0.4em;
+  }
+
+  .sep {
+    color: var(--text-secondary);
+    margin: 0 0.5em;
+  }
+
+  .hero-image-container {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .hero-image {
+    border-radius: 10px;
+    width: 178px;
+    height: auto;
+    display: block;
+  }
+
+  .stats {
+    border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+    border-top: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 1.5em 0 2em;
+    padding: 1.2em 0;
+  }
+
+  .stat-k {
+    font-family: var(--font-family-sans);
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+
+  .stat-v {
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    margin-top: 0.3em;
+  }
+
+  .projects h2 {
+    font-size: 1.4em;
+    margin-bottom: 1em;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1.2em;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+    border-radius: 10px;
+    color: inherit;
+    display: block;
+    padding: 1.3em;
+    text-decoration: none;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  .card h3 {
+    font-size: 1.1em;
+    margin-bottom: 0.3em;
+  }
+
+  .card .meta {
+    color: var(--text-secondary);
+    font-size: 0.8em;
+    margin-bottom: 0.7em;
+  }
+
+  .card p {
+    font-size: 0.92em;
+    line-height: 1.6;
+    margin-bottom: 0.9em;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .tags span {
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 4px;
+    font-size: 0.75em;
+    padding: 0.2em 0.55em;
+  }
+
+  @media (max-width: 900px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .home-container {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+  }
+</style>

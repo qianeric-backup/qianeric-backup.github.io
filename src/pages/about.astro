@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = '关于';
+const description = '钱佳宇 — 渗透测试与安全运维方向，上海建桥学院计算机科学与技术专业在读。';
+const permalink = `${Astro.site.href}about`;
+
+const skillGroups = [
+  {
+    label: '熟练',
+    items: ['Linux 系统运维与排障', 'Git / GitHub Actions CI', '绿盟安全产品交付（NF / ISOP / IDR / OSMS / CDG）'],
+  },
+  {
+    label: '熟悉',
+    items: ['Burp Suite', 'sqlmap', 'nmap', 'Wireshark', 'Playwright', 'Python 自动化脚本'],
+  },
+  {
+    label: '了解',
+    items: ['Docker', 'MongoDB', 'SQL', 'TypeScript', 'React / Expo', 'Node.js'],
+  },
+];
+
+const certs = ['HCIA（华为认证）', '英语四级', '计算机一级', '业余无线电 A 级操作证'];
+---
+
+<BaseLayout title={title} description={description} permalink={permalink} current="about">
+  <div class="container">
+    <h1>关于</h1>
+
+    <p class="lead">
+      计算机科学与技术专业在读，方向是渗透测试与安全运维。
+      在绿盟科技上海代表处做过一年安全产品交付实习，日常工作是防火墙、堡垒机、超融合桌管这类安全产品的
+      部署、测试、客户培训与故障处理；除此之外自己做渗透测试和移动端安全工具的研发。
+    </p>
+
+    <section>
+      <h2>教育经历</h2>
+      <div class="item">
+        <div class="item-head">
+          <strong>上海建桥学院</strong>
+          <span class="dim">计算机科学与技术 · 本科（在读）</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>实习经历</h2>
+      <div class="item">
+        <div class="item-head">
+          <strong>绿盟科技（上海代表处）</strong>
+          <span class="dim">实习安全工程师（产品交付）· 2025-07 ~ 2026-07</span>
+        </div>
+        <ul>
+          <li>完成海光 NF 防火墙 <b>VRRP + OSPF 双机高可用</b>部署并通过现场验收。</li>
+          <li>主导 CDG 超融合桌管（含 DLP）售前测试，输出测试用例与报告。</li>
+          <li>完成 OSMS 堡垒机客户培训与配套操作手册编写。</li>
+          <li>于涉密单位通过串口带外通道配合研发定位飞腾平台 VRRP 失效故障。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>技能</h2>
+      {skillGroups.map((g) => (
+        <div class="skill-row">
+          <span class="skill-label">{g.label}</span>
+          <div class="chips">
+            {g.items.map((i) => <span>{i}</span>)}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section>
+      <h2>证书与专利</h2>
+      <div class="chips wide">
+        {certs.map((c) => <span>{c}</span>)}
+      </div>
+      <ul>
+        <li>信息安全攻防学习平台「心之钢」（专利号 202520441847.7）</li>
+        <li>人工智能交互式媒介教学模型（专利号 202520183368.X）</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>联系</h2>
+      <ul>
+        <li>邮箱：<a href="mailto:jiayuq0@gmail.com">jiayuq0@gmail.com</a></li>
+        <li>GitHub：<a href="https://github.com/qianeric-backup/" target="_blank" rel="noopener">github.com/qianeric-backup</a></li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    font-size: 1.08em;
+    line-height: 1.8;
+    margin-bottom: 2em;
+    max-width: 780px;
+  }
+
+  h1 {
+    margin-bottom: 0.6em;
+  }
+
+  h2 {
+    border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+    font-size: 1.15em;
+    margin: 2em 0 1em;
+    padding-bottom: 0.4em;
+  }
+
+  .item-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+    justify-content: space-between;
+    margin-bottom: 0.6em;
+  }
+
+  .dim {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+  }
+
+  ul {
+    margin: 0.4em 0;
+    padding-left: 1.2em;
+  }
+
+  li {
+    line-height: 1.7;
+    margin-bottom: 0.2em;
+  }
+
+  .skill-row {
+    align-items: flex-start;
+    display: flex;
+    gap: 1em;
+    margin-bottom: 0.8em;
+  }
+
+  .skill-label {
+    color: var(--text-secondary);
+    flex: 0 0 4em;
+    font-size: 0.9em;
+    padding-top: 0.15em;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45em;
+  }
+
+  .chips span {
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 4px;
+    font-size: 0.82em;
+    padding: 0.22em 0.6em;
+  }
+
+  @media (max-width: 600px) {
+    .skill-row {
+      flex-direction: column;
+      gap: 0.4em;
+    }
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from 'astro:content'
+import readingTime from 'reading-time'
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Bio from '../../components/Bio.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects')
+  return projects.map(p => ({
+    params: { slug: p.data.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props
+const { title, slug, description, publishDate, period, role, stack } = project.data;
+const readingTimeEstimate = readingTime(project.body).text
+const permalink = `${Astro.site.href}projects/${slug}`;
+const { Content } = await render(project)
+---
+
+<BaseLayout title={title} description={description} permalink={permalink} current="projects">
+  <header>
+    <p>{period ?? publishDate} ~ {readingTimeEstimate}</p>
+    <h1>{title}</h1>
+    {role && <p class="role">{role}</p>}
+    {stack && (
+      <div class="tags">
+        {stack.map((t) => <span>{t}</span>)}
+      </div>
+    )}
+    <hr />
+  </header>
+  <div class="container">
+    <article class="content">
+      <Content />
+    </article>
+    <hr />
+    <Bio />
+  </div>
+</BaseLayout>
+
+<style>
+  header {
+    text-align: center;
+  }
+
+  header h1 {
+    margin-bottom: 0.4em;
+  }
+
+  header p {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-family: var(--font-family-sans);
+    font-weight: 600;
+  }
+
+  header .role {
+    text-transform: none;
+    font-weight: 400;
+    margin-bottom: 1em;
+  }
+
+  header hr {
+    min-width: 100px;
+    width: 30%;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    justify-content: center;
+    margin-bottom: 1em;
+  }
+
+  .tags span {
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 4px;
+    font-size: 0.75em;
+    padding: 0.2em 0.55em;
+  }
+</style>

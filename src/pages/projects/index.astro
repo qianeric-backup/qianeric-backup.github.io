@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '项目与经历';
+const description = '安全产品交付、渗透测试与工具开发的项目记录。';
+const permalink = `${Astro.site.href}projects`;
+
+let projects = await getCollection('projects')
+projects = projects.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout title={title} description={description} permalink={permalink} current="projects">
+  <div class="container">
+    <h1>项目与经历</h1>
+    {projects.map((p, index) => {
+      const href = `/projects/${p.data.slug}`;
+      return (
+        <div>
+          { index !== 0 && <hr /> }
+          <div class="post-item">
+            <h2>
+              <a href={href}>{p.data.title}</a>
+            </h2>
+            <p>{p.data.description}</p>
+            <div class="post-item-footer">
+              <span class="post-item-date">— {p.data.period ?? p.data.publishDate}</span>
+              {p.data.role && <span class="post-item-role">{p.data.role}</span>}
+            </div>
+          </div>
+        </div>
+      )
+    })}
+  </div>
+</BaseLayout>
+
+<style>
+  h2,
+  .post-item-footer {
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+  }
+
+  .post-item-date {
+    color: var(--text-secondary);
+    text-align: left;
+    text-transform: uppercase;
+    margin-right: 16px;
+  }
+
+  .post-item-role {
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    font-weight: 400;
+  }
+
+  hr {
+    margin: 60px auto;
+  }
+</style>
