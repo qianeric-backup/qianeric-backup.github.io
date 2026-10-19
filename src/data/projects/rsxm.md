@@ -6,7 +6,7 @@ description: 在 Android 免 Root 环境下通过 proot / chroot 用户态模拟
 period: 2026-03 ~ 至今
 role: 独立开发（架构设计 / 运行时集成 / 扫描引擎）
 stack: ["Android", "Java", "proot", "chroot", "Alpine Linux", "AI Agent"]
-order: 2
+order: 4
 ---
 
 ## 项目定位

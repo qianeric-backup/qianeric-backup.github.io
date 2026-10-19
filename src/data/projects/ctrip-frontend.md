@@ -6,7 +6,7 @@ description: 用 Expo + Gluestack 开发旅游日记 App，React + Vite 实现 W
 period: 2025-05 ~ 2025-06
 role: 前端开发
 stack: ["React", "Expo", "Gluestack", "Vite", "TypeScript", "JWT"]
-order: 4
+order: 5
 ---
 
 ## 项目内容
