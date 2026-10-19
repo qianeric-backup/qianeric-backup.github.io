@@ -34,8 +34,8 @@ const highlights = [
       </p>
     </div>
 
-    <div class="hero-image-container">
-      <img class="hero-image" alt="钱佳宇" src="/assets/profile.jpg" width="178" height="267">
+    <div class="hero-image-container" aria-hidden="true">
+      <div class="monogram">QJY</div>
     </div>
   </div>
 
@@ -114,11 +114,20 @@ const highlights = [
     text-align: center;
   }
 
-  .hero-image {
+  .monogram {
+    align-items: center;
+    background: rgba(128, 128, 128, 0.1);
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
     border-radius: 10px;
+    color: var(--primary-color);
+    display: flex;
+    font-family: var(--font-family-sans);
+    font-size: 2.2em;
+    font-weight: 700;
+    height: 178px;
+    justify-content: center;
+    letter-spacing: 0.08em;
     width: 178px;
-    height: auto;
-    display: block;
   }
 
   .stats {
